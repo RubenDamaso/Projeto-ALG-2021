@@ -115,23 +115,23 @@ void abrirConta(Conta *cont){
 void ListarTodasasContas(Conta cont[MAXCONTAS], int NcontasAtualmente){
 system("cls");
 printf("---TODAS AS CONTAS---");
-for(int i=0 ; i<NcontasAtualmente; i++){
-    printf("\n---------- Nº CONTA: %d ----------",cont[i].numeroConta);
-    for(int j=0; j<MAXTITULARES;j++){
-        printf("\nTitular/es: %s",cont[i].titular[j].nomeCliente);
-        printf("\nData de Nascimento: %0.2d/%0.2d/%0.4d",cont[i].titular[j].dataNascimeto.dia,cont[i].titular[j].dataNascimeto.mes,cont[i].titular[j].dataNascimeto.ano);
-        printf("\nNIF: %d",cont[i].titular[j].nifTitular);
-    }
-     printf("-----------\n");
-    printf("\nModalidade da conta:%s\n",cont[i].modalidade);
-    printf("SALDO ATUAL: %.2f\n",cont[i].saldoAtual);
-    printf("\nHistorico:\n");
-    for(int j=0 ; j<MAXHISTORICO ; j++){
-        printf("%dº valor : %.2f\n\n",j+1 ,cont[i].historico[j]);
-    }
-    printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d\n\n",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
-}
 
+    for(int i=0 ; i<NcontasAtualmente; i++){
+        printf("\n---------- Nº CONTA: %d ----------",cont[i].numeroConta);
+            for(int j=0; j<MAXTITULARES;j++){
+                printf("\nTitular/es: %s",cont[i].titular[j].nomeCliente);
+                printf("\nData de Nascimento: %0.2d/%0.2d/%0.4d",cont[i].titular[j].dataNascimeto.dia,cont[i].titular[j].dataNascimeto.mes,cont[i].titular[j].dataNascimeto.ano);
+                printf("\nNIF: %d",cont[i].titular[j].nifTitular);
+            }
+        printf("-----------\n");
+        printf("\nModalidade da conta:%s\n",cont[i].modalidade);
+        printf("SALDO ATUAL: %.2f\n",cont[i].saldoAtual);
+        printf("\nHistorico:\n");
+            for(int j=0 ; j<MAXHISTORICO ; j++){
+                printf("%dº valor : %.2f\n\n",j+1 ,cont[i].historico[j]);
+            }
+        printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d\n\n",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
+    }
 
 }
 
@@ -140,30 +140,177 @@ system("cls");
 
 //variaveis
 int nifPretendido=0;
+
 printf("\nNIF Pretendido:");
 scanf("%d",&nifPretendido);
 printf("---TODAS AS CONTAS---");
     for(int i=0 ; i<NcontasAtualmente; i++){
-            for(int j=0;j<MAXTITULARES;j++){
-                if (cont[i].titular[j].nifTitular == nifPretendido){
-                  printf("\n---------- Nº CONTA: %d ----------",cont[i].numeroConta);
-    for(int j=0; j<MAXTITULARES;j++){
-        printf("\nTitular/es: %s",cont[i].titular[j].nomeCliente);
-        printf("\nData de Nascimento: %0.2d/%0.2d/%0.4d",cont[i].titular[j].dataNascimeto.dia,cont[i].titular[j].dataNascimeto.mes,cont[i].titular[j].dataNascimeto.ano);
-        printf("\nNIF: %d",cont[i].titular[j].nifTitular);
-    }
-     printf("-----------\n");
-    printf("\nModalidade da conta:%s\n",cont[i].modalidade);
-    printf("SALDO ATUAL: %.2f\n",cont[i].saldoAtual);
-    printf("\nHistorico:\n");
-    for(int j=0 ; j<MAXHISTORICO ; j++){
-        printf("%dº valor : %.2f\n\n",j+1 ,cont[i].historico[j]);
-    }
-    printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d\n\n",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
+        for(int j=0;j<MAXTITULARES;j++){
+            if (cont[i].titular[j].nifTitular == nifPretendido){
+                printf("\n---------- Nº CONTA: %d ----------",cont[i].numeroConta);
+                for(int j=0; j<MAXTITULARES;j++){
+                    printf("\nTitular/es: %s",cont[i].titular[j].nomeCliente);
+                    printf("\nData de Nascimento: %0.2d/%0.2d/%0.4d",cont[i].titular[j].dataNascimeto.dia,cont[i].titular[j].dataNascimeto.mes,cont[i].titular[j].dataNascimeto.ano);
+                    printf("\nNIF: %d",cont[i].titular[j].nifTitular);
                 }
+                printf("-----------\n");
+                printf("\nModalidade da conta:%s\n",cont[i].modalidade);
+                printf("SALDO ATUAL: %.2f\n",cont[i].saldoAtual);
+                printf("\nHistorico:\n");
+                for(int j=0 ; j<MAXHISTORICO ; j++){
+                    printf("%dº valor : %.2f\n\n",j+1 ,cont[i].historico[j]);
+                }
+                printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d\n\n",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
+            }
+        }
+    }
+}
+
+
+
+void ListarTodasasContasNumeroConta(Conta cont[MAXCONTAS], int NcontasAtualmente){
+system("cls");
+
+//variaveis
+int nContaPretendido=0;
+
+printf("\nNumero da conta:");
+scanf("%d",&nContaPretendido);
+printf("---CONTA %d---", nContaPretendido);
+    for(int i=0 ; i<NcontasAtualmente; i++){
+            if (cont[i].numeroConta == nContaPretendido){
+                for(int j=0; j<MAXTITULARES;j++){
+                    printf("\nTitular/es: %s",cont[i].titular[j].nomeCliente);
+                    printf("\nData de Nascimento: %0.2d/%0.2d/%0.4d",cont[i].titular[j].dataNascimeto.dia,cont[i].titular[j].dataNascimeto.mes,cont[i].titular[j].dataNascimeto.ano);
+                    printf("\nNIF: %d",cont[i].titular[j].nifTitular);
+                }
+                printf("-----------\n");
+                printf("\nModalidade da conta:%s\n",cont[i].modalidade);
+                printf("SALDO ATUAL: %.2f\n",cont[i].saldoAtual);
+                printf("\nHistorico:\n");
+                for(int j=0 ; j<MAXHISTORICO ; j++){
+                    printf("%dº valor : %.2f\n\n",j+1 ,cont[i].historico[j]);
+                }
+                printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d\n\n",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
             }
     }
 }
+
+void Depositar(Conta cont[MAXCONTAS], int NcontasAtualmente){
+system("cls");
+//variaveis
+int nContaPretendido=0;
+float valorDeposito=0;
+float ultimoMovimento;
+float PnultimoMovimento;
+float AntePnultimoMovimento;
+float aux;
+printf("\nNumero da conta Pretendida:");
+scanf("%d",&nContaPretendido);
+
+    for(int i=0 ; i<NcontasAtualmente; i++){
+        if (cont[i].numeroConta == nContaPretendido){
+            printf("\nValor do Deposito:");
+            scanf("%f",&valorDeposito);
+
+                    //REALIZAÇÃO DO HISTORICO
+                ultimoMovimento       = cont[i].historico[2];
+                PnultimoMovimento     = cont[i].historico[1];
+                AntePnultimoMovimento = cont[i].historico[0];
+                cont[i].historico[2] = cont[i].saldoAtual;
+                cont[i].historico[1] = ultimoMovimento;
+                cont[i].historico[0] = PnultimoMovimento;
+
+
+            cont[i].saldoAtual=  cont[i].saldoAtual + valorDeposito;
+        }
+        printf("\n---DEPOSITO EFETUADO COM SUCESSO , OBRIGADO !---\n");
+        printf("\n\nSALDO ATUAL: %.2f\n",cont[i].saldoAtual);
+    }
+}
+
+void Levantar(Conta cont[MAXCONTAS], int NcontasAtualmente){
+system("cls");
+//variaveis
+int nContaPretendido=0;
+float valorLevantar=0;
+
+printf("\nNumero da conta Pretendida:");
+scanf("%d",&nContaPretendido);
+
+    for(int i=0 ; i<NcontasAtualmente; i++){
+        if (cont[i].numeroConta == nContaPretendido){
+            printf("\nValor que deseja levantar:");
+            scanf("%f",&valorLevantar);
+                //REALIZAÇÃO DO HISTORICO
+                ultimoMovimento       = cont[i].historico[2];
+                PnultimoMovimento     = cont[i].historico[1];
+                AntePnultimoMovimento = cont[i].historico[0];
+                cont[i].historico[2] = cont[i].saldoAtual;
+                cont[i].historico[1] = ultimoMovimento;
+                cont[i].historico[0] = PnultimoMovimento;
+
+            cont[i].saldoAtual=  cont[i].saldoAtual - (valorLevantar + 5);
+        }
+        printf("\n---LEVANTAMENTO EFETUADO COM SUCESSO , OBRIGADO !---\n");
+        printf("\n\nSALDO ATUAL: %.2f\n",cont[i].saldoAtual);
+    }
+}
+
+
+void Transferir(Conta cont[MAXCONTAS], int NcontasAtualmente){
+
+system("cls");
+//variaveis
+int nContaPretendido=0;
+float valorTransferir=0;
+int nContaEnviar=0;
+int nContaReceber=0;
+int posicaoContaEnviar=0;
+int posicaoContaReceber=0;
+
+printf("\nNumero da conta Origem:");
+scanf("%d",&nContaEnviar);
+
+printf("\nNumero da conta Destino:");
+scanf("%d",&nContaReceber);
+
+
+    for(int i=0 ; i<NcontasAtualmente; i++){
+        if (cont[i].numeroConta == nContaEnviar){
+          posicaoContaEnviar = i;
+        }
+    }
+    for(int i=0 ; i<NcontasAtualmente; i++){
+        if (cont[i].numeroConta == nContaReceber){
+          posicaoContaReceber = i;
+        }
+    }
+    printf("Introduza o valor a transferir da conta nº%d para a conta nº%d : ",cont[posicaoContaEnviar].numeroConta,cont[posicaoContaReceber].numeroConta);
+    scanf("%f",&valorTransferir);
+                //REALIZAÇÃO DO HISTORICO PARA A CONTA DE ORIGEM
+                ultimoMovimento       = cont[posicaoContaEnviar].historico[2];
+                PnultimoMovimento     = cont[posicaoContaEnviar].historico[1];
+                AntePnultimoMovimento = cont[posicaoContaEnviar].historico[0];
+                cont[posicaoContaEnviar].historico[2] = cont[posicaoContaEnviar].saldoAtual;
+                cont[posicaoContaEnviar].historico[1] = ultimoMovimento;
+                cont[posicaoContaEnviar].historico[0] = PnultimoMovimento;
+
+                //REALIZAÇÃO DO HISTORICO PARA A CONTA DE DESTINO
+                ultimoMovimento       = cont[posicaoContaReceber].historico[2];
+                PnultimoMovimento     = cont[posicaoContaReceber].historico[1];
+                AntePnultimoMovimento = cont[posicaoContaReceber].historico[0];
+                cont[posicaoContaReceber].historico[2] = cont[posicaoContaReceber].saldoAtual;
+                cont[posicaoContaReceber].historico[1] = ultimoMovimento;
+                cont[posicaoContaReceber].historico[0] = PnultimoMovimento;
+
+    cont[posicaoContaEnviar].saldoAtual-(valorTransferir+5);
+    cont[posicaoContaReceber].saldoAtual+valorTransferir;
+
+    printf("\n---TRANSFERENCIA EFETUADA COM SUCESSO , OBRIGADO !---\n");
+}
+
+
 int main()
 {
 
@@ -173,6 +320,7 @@ int main()
 int op;
 int opcao = 0;
 int OPClistagem=0;
+int OPCeditar=0;
 //Vetor 'contas' que guarda todas as contas do banco
 Conta contas[MAXCONTAS];
 //Variavel 'numeroContas' que guarda o numero total de contas presentes no banco no momento
@@ -191,6 +339,7 @@ int numeroContas=0;
             numeroContas++;//Incrementa +1 sempre que uma conta for criada
         break;
         case 2:
+            system("cls");
             printf("----LISTAGEM----\n\n");
             printf(" 1 - Listar todas as Contas\n");
             printf(" 2 - Listar pelo NIF\n");
@@ -209,15 +358,48 @@ int numeroContas=0;
              default:printf("Opção Inválida!\n");
             }
         break;
+        case 3:
+            ListarTodasasContasNumeroConta(contas, numeroContas);
+        break;
+        case 4:
+            Depositar(contas, numeroContas);
+        break;
+        case 5:
+            Levantar(contas, numeroContas);
+        break;
+        case 6:
+            Transferir(contas, numeroContas);
+        break;
+
+        case 7:
+            system("cls");
+            printf("----EDITAR CONTA----\n\n");
+            printf(" 1 - Editar Tipo de Conta\n");
+            printf(" 2 - Adicionar Titular\n");
+            scanf("%d",&OPCeditar);
+              switch(OPCeditar){
+                 case 1:
+                 EditarTipoDeConta(contas, numeroContas);
+                 break;
+
+                 case 2:
+                    AdicionarTitular(contas, numeroContas);
+                 break;
 
 
+             default:printf("Opção Inválida!\n");
+            }
+
+        break;
+        case 8:
+
+        break;
 
          default:printf("Opção Inválida!\n");
      }
      system("pause");
  }while (opcao != 10);
  return 0;
-
 
 }
 
