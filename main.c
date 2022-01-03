@@ -102,6 +102,23 @@ void abrirConta(Conta *cont){
 }
 
 
+void ListarTodasasContas(Conta cont[MAXCONTAS], int NcontasAtualmente){
+
+printf("---TODAS AS CONTAS---");
+for(int i=0 ; i<NcontasAtualmente; i++){
+    printf("\nNº CONTA: %d",cont[i].numeroConta);
+    for(int j=0; j<MAXTITULARES;j++){
+        printf("\nTitular/es: %s",cont[i].titular[j]);
+    }
+
+
+}
+
+
+
+}
+
+
 
 
 
@@ -113,7 +130,7 @@ int main()
 //VARIAVEIS
 int op;
 int opcao = 0;
-
+int OPClistagem=0;
 //Vetor 'contas' que guarda todas as contas do banco
 Conta contas[MAXCONTAS];
 //Variavel 'numeroContas' que guarda o numero total de contas presentes no banco no momento
@@ -131,7 +148,21 @@ int numeroContas=0;
             abrirConta(&contas[numeroContas]);
             numeroContas++;//Incrementa +1 sempre que uma conta for criada
         break;
+        case 2:
+            printf("----LISTAGEM----\n\n");
+            printf(" 1 - Listar todas as Contas");
+            printf(" 2 - Listar pelo NIF");
+            scanf("%d",&OPClistagem);
 
+            switch(OPClistagem){
+             case 1:
+                 ListarTodasasContas(contas, numeroContas);
+                 break;
+
+
+             default:printf("Opção Inválida!\n");
+            }
+        break;
 
 
 
