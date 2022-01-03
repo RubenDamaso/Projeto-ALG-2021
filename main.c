@@ -30,35 +30,44 @@
 /* Onde estão guardadas variaveis que são utlizadas muito frequentemente*/
 #define MAXCONTAS 100
 #define MAXTITULARES 5
+#define MAXHISTORICO 3
 
 void abrirConta(Conta *cont){
 
     //Variaveis
     char opc;
     char OPCmodalidade;
-    int saldoInicial;
+    float saldoInicial;
     char OPCsaldo;
+    char normal[6]="normal";
+    char isento[6]="isento";
+
     system("cls");
     printf("||| ABERTURA DE CONTA |||\n\n");
 
     printf("----TITULAR----\n");
     for(int i=0;i<MAXTITULARES;i++){
+
        printf("\nNome:");
-       scanf("%s" , &cont->titular->nomeCliente);
+       scanf("%s" , &cont->titular[i].nomeCliente);
+
+        printf("\nIntroduza a sua data de nascimento no formato dd/mm/aa :\n");
+        scanf("%d/%d/%d",&cont->titular[i].dataNascimeto.dia,&cont->titular[i].dataNascimeto.mes,&cont->titular[i].dataNascimeto.ano);
+
+        printf("\nIntroduza o NIF :");
+        scanf("%d",&cont->titular[i].nifTitular);
+
        printf("\nPretende adicionar outro titular? S/N");
        scanf(" %c", &opc);
        if (opc=='n' || opc=='N'){
+
         break;
        }
        else{
         continue;
        }
     }
-    printf("\nIntroduza a sua data de nascimento no formato dd/mm/aa :\n");
-    scanf("%d/%d/%d",&cont->titular->dataNascimeto.dia,&cont->titular->dataNascimeto.mes,&cont->titular->dataNascimeto.ano);
 
-    printf("\nIntroduza o NIF :");
-    scanf("%d",&cont->titular->nifTitular);
 
     printf("----CONTA:----\n");
     printf("\n Nº da conta :");
@@ -68,17 +77,17 @@ void abrirConta(Conta *cont){
          printf("\n Modalidade \( N - Normal ou I - isento\)");
         scanf(" %c",&OPCmodalidade);
         if(OPCmodalidade=='n'|| OPCmodalidade=='N'){
-            *cont->modalidade="normal";
+            strcpy(cont->modalidade, normal);
         }
-        else if (OPCmodalidade=='i'|| OPCmodalidade=='I'){
-             *cont->modalidade="isento";
+        if (OPCmodalidade=='i'|| OPCmodalidade=='I'){
+              strcpy(cont->modalidade, isento);
         }
     }while(OPCmodalidade != 'n' && OPCmodalidade !='N' && OPCmodalidade != 'i' && OPCmodalidade !='I');
 
 
     do{
         printf("\n\nSaldo:");
-        scanf("%d",&saldoInicial);
+        scanf("%f",&saldoInicial);
         if(saldoInicial<150){
            printf("\nMONTANTE ABAIXO DO NECESSARIO PARA ABERTURA DE CONTA \(Valor minimo 150 euros\)");
            OPCsaldo='n';
@@ -102,17 +111,28 @@ void abrirConta(Conta *cont){
 }
 
 
+
 void ListarTodasasContas(Conta cont[MAXCONTAS], int NcontasAtualmente){
 
 printf("---TODAS AS CONTAS---");
 for(int i=0 ; i<NcontasAtualmente; i++){
-    printf("\nNº CONTA: %d",cont[i].numeroConta);
+    printf("\n---------- Nº CONTA: %d ----------",cont[i].numeroConta);
+    printf("\n-----------\n");
     for(int j=0; j<MAXTITULARES;j++){
-        printf("\nTitular/es: %s",cont[i].titular[j]);
+        printf("\nTitular/es: %s",cont[i].titular[j].nomeCliente);
+        printf("\nData de Nascimento: %0.2d/%0.2d/%0.4d",cont[i].titular[j].dataNascimeto.dia,cont[i].titular[j].dataNascimeto.mes,cont[i].titular[j].dataNascimeto.ano);
+        printf("\nNIF: %d",cont[i].titular[j].nifTitular);
     }
-
-
+     printf("-----------\n");
+    printf("Modalidade da conta:%s",cont[i].modalidade);
+    printf("SALDO ATUAL: %f\n",cont[i].saldoAtual);
+    printf("\nHistorico:\n");
+    for(int j=0 ; j<MAXHISTORICO ; j++){
+        printf("%dº valor : %.2f\n\n",j+1 ,cont[i].historico[j]);
+    }
+    printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
 }
+
 
 
 
@@ -199,3 +219,4 @@ int apresentaMenu(){
      printf("\n\n");
      return op;
 }
+
