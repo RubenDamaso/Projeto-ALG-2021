@@ -1,6 +1,5 @@
 #ifndef CONTA_H_INCLUDED
 #define CONTA_H_INCLUDED
-#endif // CONTA_H_INCLUDED
 
 
 #include "CLIENTE.h"
@@ -17,3 +16,4 @@ typedef struct{
 
 }Conta;
 
+#endif // CONTA_H_INCLUDED
