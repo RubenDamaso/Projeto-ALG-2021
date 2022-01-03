@@ -213,7 +213,13 @@ int apresentaMenu(){
 
      printf("6. Transferir dinheiro entre contas\n");
 
-     printf("8. Sair.\n");
+     printf("7. Editar informação de  uma conta\n");
+
+     printf("8. Eliminar uma conta\n");
+
+     printf("9. Gravar listagem de contas para ficheiro texto\n");
+
+     printf("10. Sair.\n");
      printf("\n\nIntroduza a sua opção: ");
      scanf("%d", &op);
      printf("\n\n");
