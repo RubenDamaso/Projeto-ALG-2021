@@ -204,7 +204,7 @@ float valorDeposito=0;
 float ultimoMovimento;
 float PnultimoMovimento;
 float AntePnultimoMovimento;
-float aux;
+
 printf("\nNumero da conta Pretendida:");
 scanf("%d",&nContaPretendido);
 
@@ -234,7 +234,9 @@ system("cls");
 //variaveis
 int nContaPretendido=0;
 float valorLevantar=0;
-
+float ultimoMovimento;
+float PnultimoMovimento;
+float AntePnultimoMovimento;
 printf("\nNumero da conta Pretendida:");
 scanf("%d",&nContaPretendido);
 
@@ -268,6 +270,9 @@ int nContaEnviar=0;
 int nContaReceber=0;
 int posicaoContaEnviar=0;
 int posicaoContaReceber=0;
+float ultimoMovimento;
+float PnultimoMovimento;
+float AntePnultimoMovimento;
 
 printf("\nNumero da conta Origem:");
 scanf("%d",&nContaEnviar);
@@ -310,12 +315,44 @@ scanf("%d",&nContaReceber);
     printf("\n---TRANSFERENCIA EFETUADA COM SUCESSO , OBRIGADO !---\n");
 }
 
+EditarTipoDeConta(Conta cont[MAXCONTAS], int NcontasAtualmente){
+system("cls");
+//variaveis
+int nContaPretendido=0;
+float valorLevantar=0;
+char OPCmodalidade;
+char naoIsento[100]="normal";
+char isento[100]="isento";
+
+printf("\nNumero da conta Pretendida:");
+scanf("%d",&nContaPretendido);
+
+    for(int i=0 ; i<NcontasAtualmente; i++){
+        if (cont[i].numeroConta == nContaPretendido){
+            do{
+                printf("\n Modalidade \( N - Normal ou I - isento\)");
+                scanf(" %c",&OPCmodalidade);
+                fflush(stdin);
+                if(OPCmodalidade=='n'|| OPCmodalidade=='N'){
+                    strcpy(cont[i].modalidade, naoIsento);
+                }
+                else if (OPCmodalidade=='i'|| OPCmodalidade=='I'){
+                    strcpy(cont[i].modalidade, isento);
+                }
+            }while(OPCmodalidade != 'n' && OPCmodalidade !='N' && OPCmodalidade != 'i' && OPCmodalidade !='I');
+        }
+    }
+}
+
+ AdicionarTitular(Conta cont[MAXCONTAS], int NcontasAtualmente){
+
+printf("||| Adicionar Titular |||\n\n");
+
+ }
 
 int main()
 {
-
  setlocale(LC_CTYPE, "");
-
 //VARIAVEIS
 int op;
 int opcao = 0;
@@ -381,10 +418,10 @@ int numeroContas=0;
                  case 1:
                  EditarTipoDeConta(contas, numeroContas);
                  break;
-
-                 case 2:
+                case 2:
                     AdicionarTitular(contas, numeroContas);
                  break;
+
 
 
              default:printf("Opção Inválida!\n");
