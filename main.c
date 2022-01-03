@@ -39,8 +39,8 @@ void abrirConta(Conta *cont){
     char OPCmodalidade;
     float saldoInicial;
     char OPCsaldo;
-    char normal[6]="normal";
-    char isento[6]="isento";
+    char naoIsento[100]="normal";
+    char isento[100]="isento";
 
     system("cls");
     printf("||| ABERTURA DE CONTA |||\n\n");
@@ -68,7 +68,6 @@ void abrirConta(Conta *cont){
        }
     }
 
-
     printf("----CONTA:----\n");
     printf("\n Nº da conta :");
     scanf("%d",&cont->numeroConta);
@@ -76,10 +75,11 @@ void abrirConta(Conta *cont){
     do{
          printf("\n Modalidade \( N - Normal ou I - isento\)");
         scanf(" %c",&OPCmodalidade);
+        fflush(stdin);
         if(OPCmodalidade=='n'|| OPCmodalidade=='N'){
-            strcpy(cont->modalidade, normal);
+            strcpy(cont->modalidade, naoIsento);
         }
-        if (OPCmodalidade=='i'|| OPCmodalidade=='I'){
+        else if (OPCmodalidade=='i'|| OPCmodalidade=='I'){
               strcpy(cont->modalidade, isento);
         }
     }while(OPCmodalidade != 'n' && OPCmodalidade !='N' && OPCmodalidade != 'i' && OPCmodalidade !='I');
@@ -113,35 +113,57 @@ void abrirConta(Conta *cont){
 
 
 void ListarTodasasContas(Conta cont[MAXCONTAS], int NcontasAtualmente){
-
+system("cls");
 printf("---TODAS AS CONTAS---");
 for(int i=0 ; i<NcontasAtualmente; i++){
     printf("\n---------- Nº CONTA: %d ----------",cont[i].numeroConta);
-    printf("\n-----------\n");
     for(int j=0; j<MAXTITULARES;j++){
         printf("\nTitular/es: %s",cont[i].titular[j].nomeCliente);
         printf("\nData de Nascimento: %0.2d/%0.2d/%0.4d",cont[i].titular[j].dataNascimeto.dia,cont[i].titular[j].dataNascimeto.mes,cont[i].titular[j].dataNascimeto.ano);
         printf("\nNIF: %d",cont[i].titular[j].nifTitular);
     }
      printf("-----------\n");
-    printf("Modalidade da conta:%s",cont[i].modalidade);
-    printf("SALDO ATUAL: %f\n",cont[i].saldoAtual);
+    printf("\nModalidade da conta:%s\n",cont[i].modalidade);
+    printf("SALDO ATUAL: %.2f\n",cont[i].saldoAtual);
     printf("\nHistorico:\n");
     for(int j=0 ; j<MAXHISTORICO ; j++){
         printf("%dº valor : %.2f\n\n",j+1 ,cont[i].historico[j]);
     }
-    printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
+    printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d\n\n",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
 }
 
 
-
-
 }
 
+void ListarTodasasContasNiF(Conta cont[MAXCONTAS], int NcontasAtualmente){
+system("cls");
 
-
-
-
+//variaveis
+int nifPretendido=0;
+printf("\nNIF Pretendido:");
+scanf("%d",&nifPretendido);
+printf("---TODAS AS CONTAS---");
+    for(int i=0 ; i<NcontasAtualmente; i++){
+            for(int j=0;j<MAXTITULARES;j++){
+                if (cont[i].titular[j].nifTitular == nifPretendido){
+                  printf("\n---------- Nº CONTA: %d ----------",cont[i].numeroConta);
+    for(int j=0; j<MAXTITULARES;j++){
+        printf("\nTitular/es: %s",cont[i].titular[j].nomeCliente);
+        printf("\nData de Nascimento: %0.2d/%0.2d/%0.4d",cont[i].titular[j].dataNascimeto.dia,cont[i].titular[j].dataNascimeto.mes,cont[i].titular[j].dataNascimeto.ano);
+        printf("\nNIF: %d",cont[i].titular[j].nifTitular);
+    }
+     printf("-----------\n");
+    printf("\nModalidade da conta:%s\n",cont[i].modalidade);
+    printf("SALDO ATUAL: %.2f\n",cont[i].saldoAtual);
+    printf("\nHistorico:\n");
+    for(int j=0 ; j<MAXHISTORICO ; j++){
+        printf("%dº valor : %.2f\n\n",j+1 ,cont[i].historico[j]);
+    }
+    printf("Data de Abertura da conta : %0.2d/%0.2d/%0.4d\n\n",cont[i].dataAbertura.dia,cont[i].dataAbertura.mes,cont[i].dataAbertura.ano);
+                }
+            }
+    }
+}
 int main()
 {
 
@@ -170,13 +192,17 @@ int numeroContas=0;
         break;
         case 2:
             printf("----LISTAGEM----\n\n");
-            printf(" 1 - Listar todas as Contas");
-            printf(" 2 - Listar pelo NIF");
+            printf(" 1 - Listar todas as Contas\n");
+            printf(" 2 - Listar pelo NIF\n");
             scanf("%d",&OPClistagem);
 
             switch(OPClistagem){
-             case 1:
+                 case 1:
                  ListarTodasasContas(contas, numeroContas);
+                 break;
+
+                 case 2:
+                    ListarTodasasContasNiF(contas, numeroContas);
                  break;
 
 
@@ -189,7 +215,7 @@ int numeroContas=0;
          default:printf("Opção Inválida!\n");
      }
      system("pause");
- }while (opcao != 8);
+ }while (opcao != 10);
  return 0;
 
 
@@ -199,7 +225,7 @@ int apresentaMenu(){
      int op;
      system("cls");
 
-     printf("|||| Banco Alves dos Reis ||||\n\n");
+    printf("|||| Banco Alves dos Reis ||||\n\n");
 
      printf("\n1. Abrir uma conta \n");
 
@@ -225,4 +251,3 @@ int apresentaMenu(){
      printf("\n\n");
      return op;
 }
-
