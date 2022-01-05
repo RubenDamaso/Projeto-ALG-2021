@@ -10,7 +10,7 @@ typedef struct{
  int numeroConta;
  Cliente titular[5];
  char modalidade[100];
- int saldoAtual;
+ float saldoAtual;
  int historico[3];
  data dataAbertura;
 
