@@ -9,9 +9,9 @@
         Tiago Guerreiro
         Ruben Dâmaso
 
-    *@VERSÃO 0.1
+    *@VERSÃO 0.4
 
-    *DATA : 03/01/2021
+    *DATA : 07/01/2021
 
 
 */
@@ -68,7 +68,7 @@ void abrirConta(Conta *cont){
         printf("\nNome:");
         scanf("%s" , &cont->titular[i].nomeCliente);
 
-        printf("\nIntroduza a sua data de nascimento no formato dd/mm/aa :\n");
+        printf("\nIntroduza a sua data de nascimento no formato dd/mm/aa :");
         scanf("%d/%d/%d",&cont->titular[i].dataNascimeto.dia,&cont->titular[i].dataNascimeto.mes,&cont->titular[i].dataNascimeto.ano);
 
         do{
@@ -84,7 +84,8 @@ void abrirConta(Conta *cont){
             }
         }while(OPCnif !='s');
 
-        printf("\nPretende adicionar outro titular? S/N");
+        printf("\nPretende adicionar outro titular? S - Sim / N - Não");
+        printf("\nOpção:");
         scanf(" %c", &opc);
             //Se o utilizador não quiser introduzar mais titulares o ciclo interrompe e avança para a proxima recolha de informação relativa à conta propriamente dita.
             if (opc=='n' || opc=='N'){
@@ -113,6 +114,7 @@ void abrirConta(Conta *cont){
     //Atribuição da Modalidade da conta:
     do{
         printf("\n Modalidade \( N - Normal ou I - isento\)");
+        printf("\nOpção:");
         scanf(" %c",&OPCmodalidade);
         fflush(stdin);
         /*
@@ -351,9 +353,10 @@ float AntePnultimoMovimento;
 
                     /*Atualização do saldo somando o valor do deposito*/
                     cont[i].saldoAtual=  cont[i].saldoAtual + valorDeposito;
+                    printf("\n---DEPOSITO EFETUADO COM SUCESSO , OBRIGADO !---\n");
+                    printf("\n\nSALDO ATUAL: %.2f\n",cont[i].saldoAtual);
+                    break;
                 }
-                printf("\n---DEPOSITO EFETUADO COM SUCESSO , OBRIGADO !---\n");
-                printf("\n\nSALDO ATUAL: %.2f\n",cont[i].saldoAtual);
             }
     }
 }
@@ -388,6 +391,7 @@ int verdadeiro=0;
                     printf("\n!!! SALDO ENIXESTENTE !!!\n");
                     break;
                 }
+                else{
                 /*Recolha do valor a levantar da conta*/
                 printf("\nValor que deseja levantar:");
                 scanf("%f",&valorLevantar);
@@ -438,6 +442,8 @@ int verdadeiro=0;
             }
             printf("\n---LEVANTAMENTO EFETUADO COM SUCESSO , OBRIGADO !---\n");
             printf("\n\nSALDO ATUAL: %.2f\n",cont[i].saldoAtual);
+            break;
+            }
         }
     }
 }
@@ -445,7 +451,6 @@ int verdadeiro=0;
 //FUNÇÃO Transferir
 /*Esta Função permite-nos levantar algum valor numa determinada conta*/
 void Transferir(Conta cont[MAXCONTAS], int NcontasAtualmente){
-
 system("cls");
 //variaveis
 int nContaPretendido=0;
@@ -459,6 +464,7 @@ float PnultimoMovimento;
 float AntePnultimoMovimento;
 char normal[100]="normal";
 int verdadeiro=0;
+int contasExistem=0;
     /*Verificar se atualmente existem contas , se não existirem é apresentado uma mensagem ao utilizador*/
     if (NcontasAtualmente==0){
         printf("\n!!! NÃO EXISTEM CONTAS ATUALMENTE !!!\n");
@@ -470,18 +476,33 @@ int verdadeiro=0;
        /*Recolher o Numero da Conta de destino(Conta que recebe o dinheiro)*/
         printf("\nNumero da conta Destino:");
         scanf("%d",&nContaReceber);
+
             /*Percorrer todas as contas e encontrar a conta de origem*/
             for(int i=0 ; i<NcontasAtualmente; i++){
                 if (cont[i].numeroConta == nContaEnviar){
                   posicaoContaEnviar = i;
+                  contasExistem=1;
+                }
+                else{
+                 contasExistem=0;
                 }
             }
             /*Percorrer todas as contas e encontrar a conta de destino*/
             for(int i=0 ; i<NcontasAtualmente; i++){
                 if (cont[i].numeroConta == nContaReceber){
                   posicaoContaReceber = i;
+                  contasExistem=1;
+                }
+                else{
+                contasExistem=0;
                 }
             }
+
+
+
+
+        if(contasExistem == 1){
+
             //Valor a ser transferido
             printf("Introduza o valor a transferir da conta nº%d para a conta nº%d : ",cont[posicaoContaEnviar].numeroConta,cont[posicaoContaReceber].numeroConta);
             scanf("%f",&valorTransferir);
@@ -489,13 +510,9 @@ int verdadeiro=0;
                   //REALIZAÇÃO DO HISTORICO
                 Recolhemos os ultimos 3 movimentos do utilizador.
                 De seguida fazemos uma substituição dos valores, ou seja:
-
                 ultimoMovimento -> PnultimoMovimento -> AntePnultimoMovimento
-
                 após a substituição será
-
                 Valor do Saldo antes do deposito -> ultimoMovimento -> PnultimoMovimento
-
                 Desta forma conseguimos sempre manter atualizado os movimentos do saldo.
                 */
 
@@ -521,7 +538,6 @@ int verdadeiro=0;
 
                  /*
                         //Verificação da modalidade
-
                         Antes de se realizar a transferencia teremos de verificar a modalidade da conta.
                         Para isso percorremos a string 'modalidade[100]' e comparamos com a string 'nomal[100]'.
                         Se o mesmo for verdadeiro quer dizer que a conta tem a modalidade normal e dessa forma será
@@ -544,8 +560,13 @@ int verdadeiro=0;
                 }
         cont[posicaoContaReceber].saldoAtual=cont[posicaoContaReceber].saldoAtual+valorTransferir;
         printf("\n---TRANSFERENCIA EFETUADA COM SUCESSO , OBRIGADO !---\n");
+        }
+        else{
+            printf("\n!!! UMA DAS CONTAS INSERIDAS NÃO EXISTE , TENTE NOVAMENTE \n!!!");
+        }
     }
-}
+    }
+
 
 //FUNÇÃO EditarTipoDeConta
 /*Esta Função permite-nos levantar algum valor numa determinada conta*/
